@@ -67,5 +67,5 @@ resource "kubernetes_service" "cluster1" {
   }
 }
 output "IP_EAST" {
-  value = "${kubernetes_service.cluster1.load_balancer.0.ip}"
+  value = "${kubernetes_service.cluster1.load_balancer_ingress.0.ip}"
 }
