@@ -66,6 +66,7 @@ resource "kubernetes_service" "cluster1" {
     }
   }
 }
-output "IP_EAST" {
-  value = "${kubernetes_service.cluster1.load_balancer_ingress.0.ip}"
+
+output "load_balancer_ip" {
+  value = kubernetes_ingress_v1.cluster1.status.0.load_balancer.0.ingress.0.ip
 }
