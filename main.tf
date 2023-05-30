@@ -53,7 +53,7 @@ resource "linode_lke_cluster" "cluster2" {
   }
 
 output "kubeconfig1" {
-  value     = base64decode(linode_lke_cluster.cluster1.kubeconfig)
+  value     = linode_lke_cluster.cluster1.kubeconfig)
   sensitive = true
 }
 output "kubeconfig2" {
