@@ -68,3 +68,6 @@ resource "kubernetes_service" "cluster2" {
     }
   }
 }
+output "load_balancer_ip2" {
+  value = kubernetes_service.cluster2.status.0.load_balancer.0.ingress.0.ip
+}
