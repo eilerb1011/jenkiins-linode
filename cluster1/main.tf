@@ -68,5 +68,5 @@ resource "kubernetes_service" "cluster1" {
 }
 
 output "load_balancer_ip" {
-  value = kubernetes_service.cluster1.status.0.load_balancer_ingress.0.ip
+  value = kubernetes_service.cluster1.status.0.load_balancer.0.ingress.0.ip
 }
