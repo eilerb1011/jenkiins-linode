@@ -6,13 +6,13 @@ pipeline {
     agent any
     
     environment {
-        TF_VAR_token = credentials('[INSERT YOUR credential ID in Jenkins for Linode]')
+        TF_VAR_token = credentials('[put your linode credentials id here]')
         TF_VAR_workspace="${WORKSPACE}"
     }
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: '[INSERT YOUR credential ID in Jenkins for Giuthub]', url: 'https://github.com/eilerb1011/jenkins-linode'
+                git branch: 'main', credentialsId: '[put your credentials id here]', url: 'https://github.com/eilerb1011/jenkins-linode'
             }
         }
         stage('Terraform init') {
