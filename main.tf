@@ -69,6 +69,6 @@ locals {
 
  resource "null_resource" "write_kubeconfig" {
    provisioner "local-exec" {
-     command = "'${local.kubeconfig}' > kubeconfig1.yaml"
+     command = "'${local.kubeconfig1}' > kubeconfig1.yaml"
    }
  }
