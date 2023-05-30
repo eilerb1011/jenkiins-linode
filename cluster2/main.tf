@@ -9,7 +9,7 @@ terraform {
 
 
 provider "kubernetes" {
-  config_path = "kubeconfig2"
+  config_path = "kubeconfig2.yaml"
 }
 
 resource "kubernetes_deployment" "cluster2" {
