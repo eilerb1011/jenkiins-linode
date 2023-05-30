@@ -55,18 +55,12 @@ resource "linode_lke_cluster" "cluster2" {
 #  backend "http" {
 #  }
 #}
-locals {
-   kubeconfig1 = base64decode(linode_lke_cluster.cluster1.kubeconfig)
- }
-locals {
-   kubeconfig2 = base64decode(linode_lke_cluster.cluster2.kubeconfig)
- }
 output "kubeconfig1" {
-  value     = linode_lke_cluster.cluster1.kubeconfig
-  sensitive = false
+  value     = base64decode(linode_lke_cluster.cluster1.kubeconfig)
+  sensitive = true
 }
 output "kubeconfig2" {
-  value     = linode_lke_cluster.cluster2.kubeconfig
-  sensitive = false
+  value     = base64decode(linode_lke_cluster.cluster2.kubeconfig)
+  sensitive = true
 }
 
