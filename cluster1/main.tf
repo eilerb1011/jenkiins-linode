@@ -6,11 +6,12 @@ terraform {
     }
   }
 }
-
+environment = {
+      KUBECONFIG = base64decode"${var.workspace}/cluster1/kubeconfig1.yaml"
+  }
 
 provider "kubernetes" {
-  config_path = "${var.workspace}/cluster1/kubeconfig1.yaml"
-}
+  config_path = KUBECONFIG
 
 resource "kubernetes_deployment" "cluster1" {
   metadata {
