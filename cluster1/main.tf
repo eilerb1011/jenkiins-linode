@@ -20,7 +20,7 @@ resource "kubernetes_deployment" "cluster1" {
   }
 
   spec {
-    replicas = 2
+    replicas = 1
 
     selector {
       match_labels = {
@@ -68,5 +68,5 @@ resource "kubernetes_service" "cluster1" {
 }
 
 output "load_balancer_ip" {
-  value = kubernetes_service.cluster1.status.0.load_balancer.0.ip
+  value = kubernetes_service.cluster1.status.0.load_balancer.0.ingress.0.ip
 }
