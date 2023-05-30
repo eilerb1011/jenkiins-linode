@@ -55,6 +55,23 @@ resource "linode_lke_cluster" "cluster2" {
 #  backend "http" {
 #  }
 #}
+locals {
+   kubeconfig = base64decode(linode_lke_cluster.cluster1.kubeconfig)
+ }
+
+ resource "null_resource" "write_kubeconfig" {
+   provisioner "local-exec" {
+     command = "'${local.kubeconfig}' > kubeconfig1.yaml"
+   }
+ }
+   kubeconfig2 = base64decode(linode_lke_cluster.cluster2.kubeconfig)
+ }
+
+ resource "null_resource" "write_kubeconfig" {
+   provisioner "local-exec" {
+     command = "'${local.kubeconfig}' > kubeconfig2.yaml"
+   }
+ }
 output "kubeconfig1" {
   value     = linode_lke_cluster.cluster1.kubeconfig
   sensitive = true
