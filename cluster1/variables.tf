@@ -1,2 +1,1 @@
 variable "workspace" {}
-variable "KUBECONFIG" {}
