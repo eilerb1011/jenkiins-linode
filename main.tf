@@ -51,10 +51,7 @@ resource "linode_lke_cluster" "cluster2" {
       }
     }
   }
-#terraform {
-#  backend "http" {
-#  }
-#}
+
 output "kubeconfig1" {
   value     = base64decode(linode_lke_cluster.cluster1.kubeconfig)
   sensitive = true
