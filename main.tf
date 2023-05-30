@@ -63,10 +63,10 @@ locals {
  }
 output "kubeconfig1" {
   value     = linode_lke_cluster.cluster1.kubeconfig
-  sensitive = true
+  sensitive = false
 }
 output "kubeconfig2" {
   value     = linode_lke_cluster.cluster2.kubeconfig
-  sensitive = true
+  sensitive = false
 }
 
