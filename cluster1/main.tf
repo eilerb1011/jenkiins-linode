@@ -60,7 +60,7 @@ resource "kubernetes_service" "cluster1" {
   }
   spec {
     selector = {
-      app = kubernetes_deployment.CBC.spec.0.template.0.metadata.0.labels.app
+      app = kubernetes_deployment.cluster1.spec.0.template.0.metadata.0.labels.app
     }
     type = "LoadBalancer"
     port {
