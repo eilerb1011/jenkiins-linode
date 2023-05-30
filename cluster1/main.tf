@@ -66,3 +66,6 @@ resource "kubernetes_service" "cluster1" {
     }
   }
 }
+output "IP_EAST" {
+  value = "${kubernetes_service.example.load_balancer_ingress.0.ip}"
+}
