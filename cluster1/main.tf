@@ -9,7 +9,7 @@ terraform {
 
 provider "kubernetes" {
   config_path = "${var.workspace}/cluster1/kubeconfig1.yaml"
-
+}
 resource "kubernetes_deployment" "cluster1" {
   metadata {
     name = "nginx-east"
