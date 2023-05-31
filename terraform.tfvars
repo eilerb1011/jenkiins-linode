@@ -12,13 +12,13 @@ pools = {
   }
 }
 ############CLUSTER 2 Settings###########
-label2 = "us-west-k8s-3"
+label2 = "us-west-k8s-4"
 region2 = "us-west"
 #Mark the following true for HA control plane or false for non-HA
 HA2 = false
 pools2 = {
   "pool-2" = {
-    type2 = "g6-standard-1"
+    type2 = "g6-standard-2"
     min-nodes2 = 1
     max-nodes2 = 3
   }
