@@ -32,32 +32,32 @@ resource "linode_lke_cluster" "cluster1" {
       }
     }
   }
-resource "linode_lke_cluster" "cluster2" {
-  k8s_version = var.k8s_version
-  label       = var.label2
-  region      = var.region2
-  control_plane  {
-        high_availability = var.HA2
-    }
-  dynamic "pool" {
-    for_each = var.pools2
-    content {
-      type  = pool.value["type2"]
-      count = pool.value["min-nodes2"]
-      autoscaler {
-        min = pool.value["min-nodes2"]
-        max = pool.value["max-nodes2"]
-        }
-      }
-    }
-  }
+#resource "linode_lke_cluster" "cluster2" {
+#  k8s_version = var.k8s_version
+#  label       = var.label2
+#  region      = var.region2
+#  control_plane  {
+#        high_availability = var.HA2
+#    }
+# dynamic "pool" {
+#    for_each = var.pools2
+#    content {
+#      type  = pool.value["type2"]
+#      count = pool.value["min-nodes2"]
+#      autoscaler {
+#        min = pool.value["min-nodes2"]
+#        max = pool.value["max-nodes2"]
+#       }
+#      }
+#    }
+#  }
 
 output "kubeconfig1" {
   value     = base64decode(linode_lke_cluster.cluster1.kubeconfig)
   sensitive = true
 }
-output "kubeconfig2" {
-  value     = base64decode(linode_lke_cluster.cluster2.kubeconfig)
-  sensitive = true
-}
+#output "kubeconfig2" {
+# value     = base64decode(linode_lke_cluster.cluster2.kubeconfig)
+#  sensitive = true
+#}
 
