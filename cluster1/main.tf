@@ -42,12 +42,20 @@ resource "kubernetes_deployment" "cluster1" {
           port {
             container_port = 80
           }
+          env {
+            name: "LINODE_ID"
+            value_from: {
+              field_ref {
+                api_version = "1"
+                field_path = "spec.nodeName"
+              }
+            }
+          }
         }
       }
     }
   }
 }
-
 resource "kubernetes_service" "cluster1" {
   metadata {
     name = "nginx-east"
