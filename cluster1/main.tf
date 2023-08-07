@@ -43,8 +43,8 @@ resource "kubernetes_deployment" "cluster1" {
             container_port = 80
           }
           env {
-            name: "LINODE_ID"
-            value_from: {
+            name = "LINODE_ID"
+            value_from {
               field_ref {
                 api_version = "1"
                 field_path = "spec.nodeName"
