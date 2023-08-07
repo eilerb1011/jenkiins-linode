@@ -37,12 +37,20 @@ resource "kubernetes_deployment" "cluster2" {
         }
       }
 
-      spec {
+     spec {
         container {
-          image = "stenote/nginx-hostname"
+          image = "eilerb101/nginx_akamai"
           name  = "nginx"
           port {
             container_port = 80
+          }
+          env {
+            name = "LINODE_ID"
+            value_from {
+              field_ref {
+                field_path = "spec.nodeName"
+              }
+            }
           }
         }
       }
