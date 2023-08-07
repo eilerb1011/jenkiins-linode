@@ -37,7 +37,7 @@ resource "kubernetes_deployment" "cluster1" {
 
       spec {
         container {
-          image = "stenote/nginx-hostname"
+          image = "eilerb101/nginx_akamai"
           name  = "nginx"
           port {
             container_port = 80
