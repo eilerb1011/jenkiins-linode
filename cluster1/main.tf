@@ -46,7 +46,6 @@ resource "kubernetes_deployment" "cluster1" {
             name = "LINODE_ID"
             value_from {
               field_ref {
-                api_version = "1"
                 field_path = "spec.nodeName"
               }
             }
