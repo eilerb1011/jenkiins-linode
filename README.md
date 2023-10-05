@@ -62,7 +62,7 @@ Save & Exit
 
 Run 
 ```
-systemctl daemon reload && systemctl restart jenkins
+systemctl daemon-reload && systemctl restart jenkins
 ```
 
 - Login to Jenkins at https://your.dnsname.com:8443 
