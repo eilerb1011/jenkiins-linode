@@ -30,7 +30,6 @@ cp privkey.pem jenkins.mydomain.com.key
 
 openssl pkcs12 -export -out jenkins.p12 -passout 'pass:mycomplexpassword' -inkey jenkins.mydomain.com.key -in jenkins.mydomain.com.crt -name jenkins.mydomain.com
 keytool -importkeystore -srckeystore jenkins.p12 -srcstorepass 'mycomplexpassword' -srcstoretype PKCS12 -srcalias jenkins.mydomain.com -destkeystore jenkins.jks -deststorepass 'myothercomplexpassword' -destalias jenkins.mydomain.com
-```
 systemctl edit jenkins --full
 ``` 
 VERY IMPORTANT – JENKINS RUNS AS AN UNDER-PRIVILEDGED USER - YOU CANNOT USE PORTS UNDER 1024 
