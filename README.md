@@ -27,10 +27,14 @@ First you must convert your cert to JKS format using openssl and keytool:  This 
 cd /etc/letsencrypt/live/jenkins.mydomain.com
 cp cert.pem jenkins.mydomain.com.crt
 cp privkey.pem jenkins.mydomain.com.key
-
 openssl pkcs12 -export -out jenkins.p12 -passout 'pass:mycomplexpassword' -inkey jenkins.mydomain.com.key -in jenkins.mydomain.com.crt -name jenkins.mydomain.com
 keytool -importkeystore -srckeystore jenkins.p12 -srcstorepass 'mycomplexpassword' -srcstoretype PKCS12 -srcalias jenkins.mydomain.com -destkeystore jenkins.jks -deststorepass 'myothercomplexpassword' -destalias jenkins.mydomain.com
-systemctl edit jenkins --full
+mkdir /etc/jenkins
+chmod 700 /etc/jenkins
+cp jenkins.jks /etc/jenkins/
+chmod 600 /etc/jenkins/jenkins.jks
+chown -R jenkins: /etc/jenkins
+vi /etc/default/jenkins
 ``` 
 VERY IMPORTANT – JENKINS RUNS AS AN UNDER-PRIVILEDGED USER - YOU CANNOT USE PORTS UNDER 1024 
 Find, uncomment and edit:
@@ -47,7 +51,7 @@ Find, uncomment and edit:
 ```
 Environment="JENKINS_HTTPS_KEYSTORE=/path/to/keystore"
 ```
-This should reflect the path to your keystore created with keytool from above
+This should reflect the path to your keystore created with keytool from above, in our case - /etc/jenkins/jenkins.jks
 AND
 ```
 Environment="JENKINS_HTTPS_KEYSTORE_PASSWORD="
