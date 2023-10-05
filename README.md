@@ -34,41 +34,43 @@ chmod 700 /etc/jenkins
 cp jenkins.jks /etc/jenkins/
 chmod 600 /etc/jenkins/jenkins.jks
 chown -R jenkins: /etc/jenkins
-vi /etc/default/jenkins
+systemctl edit jenkins --full  
 ``` 
 VERY IMPORTANT – JENKINS RUNS AS AN UNDER-PRIVILEDGED USER - YOU CANNOT USE PORTS UNDER 1024 
 Find, uncomment and edit:
 ```
 Environment="JENKINS_PORT=8080"
 ``` 
-Change the port to –1 to disable HTTP 
-Find, uncomment and edit:
+Change this line to reflect `Environment="JENKINS_PORT=–1"` to disable HTTP   
+
+Then find, uncomment and edit:
 ```
 Environment="JENKINS_HTTPS_PORT=443"
 ``` 
-Change port to 8443 
-Find, uncomment and edit:
+Change port to `8443`  
+
+Then find, uncomment and edit:  
 ```
 Environment="JENKINS_HTTPS_KEYSTORE=/path/to/keystore"
 ```
-This should reflect the path to your keystore created with keytool from above, in our case - /etc/jenkins/jenkins.jks
-AND
+This should reflect the path to your keystore created with keytool from above, in our case it should look like - `Environment="JENKINS_HTTPS_KEYSTORE=/etc/jenkins/jenkins.jks"`  
+
+Then find, uncomment and edit:  
 ```
 Environment="JENKINS_HTTPS_KEYSTORE_PASSWORD="
 ``` 
-This should match the password you set to the destination keystore 
-AND
+This should match the password you set to the destination keystore.  Add that password between = and "  
+
+Then find, uncomment and edit:  
 ```
 Environment="JENKINS_HTTPS_LISTEN_ADDRESS="
 ``` 
-Add 0.0.0.0 before the final quote 
-Save & Exit 
-
+Add `0.0.0.0` before the final quote  
+Save & Exit  
 Run 
 ```
 systemctl daemon-reload && systemctl restart jenkins
 ```
-
 - Login to Jenkins at https://your.dnsname.com:8443 
 - Setup your server with Dashboard and Github 
 - Set up your first admin user 
@@ -82,18 +84,18 @@ Generate a PAT IN Github with the following permissions:
 - Admin:repo_hook 
 - Delete_repo
   
-Make note of the new key 
-In Jenkins, select Manage Jenkins and System. 
-In the GitHub section: 
-Give your server a name (ie important if you have multiple GitHub Enterprise servers) 
-If using github.com, leave the API URL at https://api.github.com 
-Under credentials, 
+Make note of the new key  
+In Jenkins, select Manage Jenkins and System.  
+In the GitHub section:  
+Give your server a name (ie important if you have multiple GitHub Enterprise servers)  
+If using github.com, leave the API URL at https://api.github.com  
+Under credentials:  
 - Add new credentials 
 - Select Jenkins 
 - Select kind = secret text and paste your Github PAT into the Secret field
-- Give your secret a meaningful ID, else it will be assigned a random UID.  You will use this as the ID below to populate credentialsId in the Git commands of your script
+- Give your secret a meaningful ID, else it will be assigned a random UID.  You will use this as the ID below to populate credentialsId in the Git commands of your script 
    
-After entering the new credentials, select it from the credentials drop down and click test connection. 
+After entering the new credentials, select it from the credentials drop down and click test connection.  
 Then save the config 
 
 ## Creating creds for Linode/Terraform
