@@ -6,7 +6,7 @@ This repo creates a simple multi-location managed Kubernetes deployment in Linod
 Using your Linode account, locate Jenkins in the Marketplace and follow the deployment instructions.
 - Setup your dns name based on the IP assigned to the Jenkins server and create that A record in your authoritative DNS
 - Login to your server via SSH or Linode's LISH console in the portal
-- Get the initial Jenkins password from /var/lib/jenkins/secrets/initialpassword 
+- Get the initial Jenkins password from /var/lib/jenkins/secrets/initialpassword `cat /var/lib/jenkins/secrets/initialpassword`
 - While in the server:
     
 ```
@@ -22,6 +22,14 @@ Add:
 0 0 */30 * * certbot renew
 ``` 
 ### **-----------------SETUP CERT AND JENKINS SSL------------------** 
+First you must convert your cert to JKS format using openssl and keytool:  This example uses my a server at jenkins.mydomain.com
+```
+cd /etc/letsencrypt/live/jenkins.mydomain.com
+cp cert.pem jenkins.mydomain.com.crt
+cp privkey.pem jenkins.mydomain.com.key
+
+openssl pkcs12 -export -out jenkins.p12 -passout 'pass:mycomplexpassword' -inkey jenkins.mydomain.com.key -in jenkins.mydomain.com.crt -name jenkins.mydomain.com
+keytool -importkeystore -srckeystore jenkins.p12 -srcstorepass 'mycomplexpassword' -srcstoretype PKCS12 -srcalias jenkins.mydomain.com -destkeystore jenkins.jks -deststorepass 'myothercomplexpassword' -destalias jenkins.mydomain.com
 ```
 systemctl edit jenkins --full
 ``` 
@@ -40,12 +48,12 @@ Find, uncomment and edit:
 ```
 Environment="JENKINS_HTTPS_KEYSTORE=/path/to/keystore"
 ```
-This should reflect the path to your keystore from above (ie certbot)
+This should reflect the path to your keystore created with keytool from above
 AND
 ```
 Environment="JENKINS_HTTPS_KEYSTORE_PASSWORD="
 ``` 
-This should match the password you set to the keystore 
+This should match the password you set to the destination keystore 
 AND
 ```
 Environment="JENKINS_HTTPS_LISTEN_ADDRESS="
